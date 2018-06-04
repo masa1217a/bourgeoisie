@@ -1,0 +1,237 @@
+package com.bourgeoisie.dao;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.bourgeoisie.dto.Storemanager;
+
+
+
+/**
+ * 検索を行うクラス
+ * @author ilearning
+ */
+public class SyOperatorDAO {
+	// データベースの情報
+	private static final String DB_URL = "jdbc:postgresql://localhost:5432/sn_tr"; // URL
+	private static final String DB_USER = "postgres"; // ユーザー名
+	private static final String PASSWORD = "password"; // パスワード
+
+	private static final String JDBC_DRIVER = "org.postgresql.Driver";
+
+	static {
+		try {
+			Class.forName(JDBC_DRIVER);
+		}catch(ClassNotFoundException e) {
+			System.err.println("ドライバのロードに失敗しました");
+			e.printStackTrace();
+		}
+	}
+
+
+	/**
+	*	Storemanagerに値をセット
+	*/
+	private static Storemanager setManager(ResultSet rs){
+
+		Storemanager manager = new Storemanager();
+		try {
+			manager.setStoremanageid(rs.getInt("storemanagerid"));
+			manager.setPassword(rs.getString("password"));
+			manager.setManagername(rs.getString("managername"));
+			manager.setStatus(rs.getInt("status"));
+		} catch (SQLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		return manager;
+	}
+
+	/**
+	 *	storemanagerテーブルの全件を検索し返す
+	 * @return storemanagerリスト
+	 */
+	public static List<Storemanager> getStoremanagerList() {
+		// Bookリスト
+		List<Storemanager> list = new ArrayList<>();
+		// SQL文
+		final String SQL = "select * from storemanager order by storemanagerid";
+
+
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL)) {
+
+			// 実行結果をセット
+			ResultSet rs = pstmt.executeQuery();
+			// リストにBookを追加する
+			while (rs.next()) {
+				//インスタンスの生成
+				Storemanager manager = setManager(rs);
+				list.add(manager);  // リストに追加
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	/**
+	 * 書籍番号をもとに1件返す
+	 * @param keyword 検索したい管理者iID(int)
+	 * @return Storemanager型
+	 */
+	public static Storemanager getStoremanager(int keyword) {
+		// Bookの変数指定
+		Storemanager manager = null;
+
+		// SQL文
+		final String SQL = "select * from storemanager where storemanagerid = ?";
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL)) {
+
+			// SQLの変数に値をセット
+			pstmt.setInt(1, keyword); // 書籍番号
+
+			// 結果をセットする
+			ResultSet rs = pstmt.executeQuery();
+
+			// rx.nextがtrueの場合
+			if (rs.next() == true) {
+				manager = setManager(rs);
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+		return manager;
+	}
+
+	/**
+	 * 書名や著者をもとに検索を行う
+	 * @param keyword  検索条件（String）
+	 * @return List<Book>
+	 */
+	public static String getLoginManager(String id, String password) {
+
+		final String SQL = "select * from sn_admin where (adminid = ? and password = ?)";
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL)) {
+
+			pstmt.setString(1, id );
+			pstmt.setString(2, password);
+
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next() == true) {
+				//id = rs.getString("adminid");
+				return rs.getString("adminid");
+			}
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+
+		return null;
+
+
+	}
+
+	/**
+	 * データの追加
+	 * @param book
+	 * @return 追加したデータ数
+	 */
+	public static int insertStoremanager(Storemanager manager) {
+
+		final String SQL = "insert into Storemanager(storemanagerid, password) values( ?, ? )";
+		int rows = 0;
+
+
+		Integer gkey = null; // キー
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS)) {
+
+			// SQLに変数を挿入
+			pstmt.setInt(1, manager.getStoremanageid());
+			pstmt.setString(2, manager.getPassword()); // 1番目：書名
+
+			rows = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+		return rows;
+
+
+
+
+
+
+
+	}
+
+	/**
+	 * 価格データの更新
+	 * @param bookno
+	 * @param price
+	 * @return 更新したデータ数
+	 */
+/*	public static int updateBookPrice(int bookno, int price) {
+
+		final String SQL = "update book set price = ? where bookno = ?";
+		int rows = 0; // *行
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL)) {
+
+			// SQLの変数に挿入
+			pstmt.setInt(1, price);		// 価格
+			pstmt.setInt(2, bookno);	// 書籍番号
+
+			rows = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+		return rows;
+	}
+
+	/**
+	 * データの削除
+	 * @param bookno
+	 * @return
+	 */
+/*	public static int deleteBook(int bookno) {
+
+		final String SQL = "delete from book where bookno = ?";
+		int rows = 0;
+
+		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, PASSWORD);
+				PreparedStatement pstmt = con.prepareStatement(SQL)) {
+
+			// SQLの変数に挿入
+			pstmt.setInt( 1, bookno); // 書籍番号
+
+			rows = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println("SQL:" + SQL);
+			e.printStackTrace();
+		}
+		return rows;
+	}*/
+}

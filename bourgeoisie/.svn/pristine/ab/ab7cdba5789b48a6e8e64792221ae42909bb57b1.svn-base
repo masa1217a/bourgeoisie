@@ -1,0 +1,5 @@
+package com.bourgeoisie.dto;
+
+public class User {
+
+}

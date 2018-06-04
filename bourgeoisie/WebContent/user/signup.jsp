@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+
+	<div class="box align-center">
+		<h2 class="round one fifth asphalt box">新規登録</h2>
+		<br>
+		<br>
+		<br>
+		<%-- 入力フォーム --%>
+		<form action="recode_checker" method="post">
+		<div class="row gap-bottom">
+	    <div class="two fourths small-tablet pad-right no-pad-mobile">
+	      ID：<input type="text" name="uid" required>
+	    </div>
+	  </div>
+
+	  <div class="row gap-bottom">
+			<div class="row gap-bottom">
+	    <div class="two fourths small-tablet pad-right no-pad-mobile">
+	      パスワード<input type="text" name="password1" required>
+	    </div>
+	  	</div>
+	  </div>
+	  <div class="row gap-bottom">
+	    <div class="two fourths small-tablet pad-right no-pad-mobile">
+	      パスワード確認用<input type="text" name="password2" required>
+	    </div>
+	  </div>
+	  <div class="row gap-bottom">
+			<div class="row gap-bottom">
+	    <div class="two fourths small-tablet pad-right no-pad-mobile">
+	      メールアドレス<input type="text" name="password1" required>
+	    </div>
+	  	</div>
+	  </div>
+	  <div class="row gap-bottom">
+	    <div class="two fourths small-tablet pad-right no-pad-mobile">
+	      メールアドレス確認用<input type="text" name="password2" required>
+	    </div>
+	  </div>
+	  <br>
+	  <div class="row gap-bottom">
+	  	<div class="one fourth small-tablet">
+	    	<button type="submit" class="block asphalt">登録</button>
+	    </div>
+	  </div>
+
+	  </form>
+
+	  <br>
+		<br>
+		<br>
+
+	</div>

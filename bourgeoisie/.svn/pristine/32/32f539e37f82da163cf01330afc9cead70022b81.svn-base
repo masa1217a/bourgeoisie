@@ -1,0 +1,51 @@
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+    	<style type="text/css">
+	.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #FA8072	;/*ボタン色*/
+    color: #FFFFFF;
+    border-bottom: solid 4px #FF4F50;
+    border-radius: 3px;
+}
+.square_btn:hover {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+</style>
+
+  <h1>店舗情報</h1>
+  ${detail_store.storename}
+
+  <div
+	style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; border-radius: 10px;">
+	店舗名： <c:out value="${detail_store.storename}" /><br/>
+	店舗情報：<c:out value="${detail_store.storeinfomation}" /><br/>
+	ジャンル：<c:out value="${detail_store.genreno}" /><br/>
+	コスト： <c:out value="${detail_store.cost}" /><br/>
+	住所： <c:out value="${detail_store.address}" /><br/>
+	電話番号： <c:out value="${detail_store.storeinfomation}" /><br/>
+	営業時間： <c:out value="${detail_store.open}" /><br/>
+	店舗ホームページ： <a href="${ detail_store.url }">${ detail_store.url }</a><br/>
+	メールアドレス： <c:out value="${detail_store.mailaddress}" /><br/>
+	<img src="${store.picture}" width="238" height="238"><br/>
+	運営会社名： <c:out value="${detail_store.operatingcompany}" /><br/>
+	代表者： <c:out value="${detail_store.representative}" /><br/>
+	店長： <c:out value="${detail_store.storemanager}" /><br/>
+	</div>
+
+	<div
+	style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; border-radius: 10px;">
+	<h1>平均評価：${ average }</h1>
+	</div>
+
+
+</style>
+<a href="#" class="square_btn">レビューを見る</a>&nbsp;&nbsp;&nbsp;
+<a href="#" class="square_btn">レビューを投稿する</a><br><br>

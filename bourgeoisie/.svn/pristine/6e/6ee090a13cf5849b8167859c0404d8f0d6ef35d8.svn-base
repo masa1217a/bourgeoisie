@@ -1,0 +1,32 @@
+package com.bourgeoisie.model;
+
+import java.util.List;
+
+import com.bourgeoisie.dao.GenreDao;
+import com.bourgeoisie.dao.StoreinfoDao;
+import com.bourgeoisie.dto.Genre;
+import com.bourgeoisie.dto.Storeinfo;
+
+public class StoreinfoSearchModel {
+
+	public List<Storeinfo> search(String keyword, int genreno) {
+
+		return StoreinfoDao.search(keyword, genreno);
+	}
+
+	public List<Genre> allGenre() {
+
+		return GenreDao.all();
+	}
+
+	public Storeinfo getStore(int storeid) {
+
+		return StoreinfoDao.getStore(storeid);
+	}
+
+	public boolean updateStore(Storeinfo detail_store) {
+		return StoreinfoDao.updateStoreinfo(detail_store);
+
+	}
+
+}

@@ -1,0 +1,32 @@
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<%@page import="java.util.List"%>
+<%@ page import="com.bourgeoisie.model.admin.storemanager.StoreTopBean" %>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+	table, td{
+		border-style: solid;
+		border-width: 1px;
+		border-color: black;
+		text-align: center;
+	}
+</style>
+</head>
+<body>
+
+	<h1>店舗リスト</h1>
+
+	<ul>
+		<a href=""><li>${ storename }</li></a>
+	</ul>
+
+</body>
+</html>

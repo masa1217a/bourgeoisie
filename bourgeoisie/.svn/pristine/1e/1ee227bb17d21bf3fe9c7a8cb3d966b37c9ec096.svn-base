@@ -1,0 +1,46 @@
+<%@page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+  <h1>店舗情報</h1>
+  <div
+	style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; border-radius: 10px;">
+	店舗名： ${ storename }<br/>
+	店舗情報：${ storeinfomation }<br/>
+	ジャンル：${ genreno }<br/>
+	コスト： ${ cost }<br/>
+	住所： ${ adress }<br/>
+	電話番号： ${ storeinfomation }<br/>
+	営業時間： ${ open }<br/>
+	店舗ホームページ： <a href="${ storename }">${ url }</a><br/>
+	メールアドレス： ${ mailadress }<br/>
+	<img src="${ picture }" width="238" height="238"><br/>
+	運営会社名： ${ operatingcompany }<br/>
+	代表者： ${ representative }<br/>
+	店長： ${ storemanager }<br/>
+
+	</div>
+
+	<div
+	style="padding: 10px; margin-bottom: 10px; border: 1px solid #333333; border-radius: 10px;">
+	<h1>平均評価：${ average }</h1>
+	</div>
+
+	<style type="text/css">
+	.square_btn{
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    background: #FA8072	;/*ボタン色*/
+    color: #FFFFFF;
+    border-bottom: solid 4px #FF4F50;
+    border-radius: 3px;
+}
+.square_btn:hover {/*ボタンを押したとき*/
+    -ms-transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);/*下に動く*/
+    border-bottom: none;/*線を消す*/
+}
+</style>
+<a href="#" class="square_btn">レビューを見る</a>&nbsp;&nbsp;&nbsp;
+<a href="#" class="square_btn">レビューを投稿する</a><br><br>

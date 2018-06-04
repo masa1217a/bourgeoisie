@@ -1,0 +1,39 @@
+package com.bourgeoisie.servlet.admin.system;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.bourgeoisie.model.admin.system.LoginManage2;
+
+
+
+/**
+ * Servlet implementation class LoginServlet
+ */
+@WebServlet("/admin/system/login_check")
+public class LoginCheckServlet extends BaseServlet {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	protected void doRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		LoginManage2 lm = new LoginManage2(request.getSession());
+		//response.sendRedirect("../AdminLogin.jsp");
+
+		if (lm.doLogin(request.getParameter("SyId"), request.getParameter("SyPw")) == true) {
+			System.out.println("ture");
+			response.sendRedirect("../AdminMypage.jsp");
+			return;
+		}
+		System.out.println("false");
+		request.getSession().setAttribute("error_login", "IDまたはパスワードが違います");
+		response.sendRedirect("../AdminLogin.jsp");
+
+
+}
+	}

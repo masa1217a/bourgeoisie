@@ -1,0 +1,24 @@
+package com.bourgeoisie.model;
+
+import javax.servlet.http.HttpSession;
+
+public class LoginManage {
+
+	HttpSession session;
+
+	public LoginManage(HttpSession session) {
+		this.session = session;
+	}
+
+	public boolean doLogin(String id, String password) {
+
+		// ログインチェック
+
+		// 成功
+		return true;
+
+		//失敗
+		//return false;
+	}
+
+}
